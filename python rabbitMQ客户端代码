@@ -8,9 +8,7 @@ from mrm.models import *
 from pika import credentials as pika_credentials
 from mrm.utility import convertdicttoentity
 credentials = pika_credentials.PlainCredentials('mkit','mkit')
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='172.16.8.104 
-
-',port='5672',
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='172.16.8.104',port='5672',
         virtual_host='/cig_mq',credentials=credentials))
 queue_name = 'mkit_test_queue'
 channel = connection.channel()
