@@ -8,8 +8,7 @@ from mrm.models import *
 from pika import credentials as pika_credentials
 from mrm.utility import convertdicttoentity
 credentials = pika_credentials.PlainCredentials('mkit','mkit')
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='172.16.8.104',port='5672',
-        virtual_host='/cig_mq',credentials=credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='172.16.8.104',port='5672',virtual_host='/cig_mq',credentials=credentials))
 queue_name = 'mkit_test_queue'
 channel = connection.channel()
 channel.basic_qos(prefetch_count=1)
@@ -22,9 +21,7 @@ def callback(ch, method, properties, body):
     # 业务处理代码
     ch.basic_ack(delivery_tag=method.delivery_tag)
     print(" [x] %r" % body)
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=False)
+channel.basic_consume(callback,queue=queue_name,no_ack=False)
 
 channel.start_consuming()
 
